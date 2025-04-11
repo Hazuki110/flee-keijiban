@@ -34,3 +34,100 @@
       font-size: 18px;
       border: 1px solid #ccc;
       border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 12px 25px;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      float: right;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #357ABD;
+    }
+
+    #posts {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .post {
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+    }
+
+    .delete {
+      color: red;
+      font-size: 14px;
+      cursor: pointer;
+      float: right;
+    }
+  </style>
+</head>
+<body>
+  <h1>りぽはづ掲示板</h1>
+
+  <form id="form">
+    <input type="text" id="name" placeholder="名前" required>
+    <textarea id="message" placeholder="メッセージ" rows="4" required></textarea>
+    <button type="submit">投稿</button>
+  </form>
+
+  <div id="posts"></div>
+
+  <script>
+    const form = document.getElementById('form');
+    const posts = document.getElementById('posts');
+
+    // 過去の投稿を読み込み
+    window.onload = function() {
+      const savedPosts = localStorage.getItem('posts');
+      if (savedPosts) {
+        posts.innerHTML = savedPosts;
+        attachDeleteEvents();
+      }
+    };
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      const message = document.getElementById('message').value;
+
+      const postElement = document.createElement('div');
+      postElement.className = 'post';
+      postElement.innerHTML = `
+        <strong>${name}</strong><br>${message}
+        <span class="delete" onclick="this.parentElement.remove();savePosts();">削除</span>
+      `;
+
+      posts.prepend(postElement);
+      savePosts();
+      form.reset();
+    });
+
+    function savePosts() {
+      localStorage.setItem('posts', posts.innerHTML);
+    }
+
+    function attachDeleteEvents() {
+      document.querySelectorAll('.delete').forEach(delBtn => {
+        delBtn.onclick = function() {
+          this.parentElement.remove();
+          savePosts();
+        };
+      });
+    }
+  </script>
+</body>
+</html>
