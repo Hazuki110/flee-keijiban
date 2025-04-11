@@ -53,9 +53,10 @@
       postElement.className = 'post';
       postElement.innerHTML = `<strong>${name}</strong><br>${message}`;
 
+　　　　<span class="delete" onclick="this.parentElement.remove()">削除</span>
+
       posts.prepend(postElement); // 新しい投稿を上に追加
 
-      form.reset(); // フォームをリセット
     });
   </script>
  </body>
