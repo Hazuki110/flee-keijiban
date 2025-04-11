@@ -26,15 +26,27 @@
       max-width: 600px;
       margin-left: auto;
       margin-right: auto;
+      box-sizing: border-box;
     }
 
-    input, textarea {
-      width: 100%;
-      padding: 15px;
-      font-size: 18px;
+    #form input {
+      width: 40%;
+      padding: 12px;
+      font-size: 16px;
       border: 1px solid #ccc;
       border-radius: 5px;
-      margin-top: 10px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+
+    #form textarea {
+      width: 100%;
+      padding: 15px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      resize: vertical;
+      box-sizing: border-box;
     }
 
     button {
@@ -60,6 +72,10 @@
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      box-sizing: border-box;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
     }
 
     .post {
@@ -90,7 +106,6 @@
     const form = document.getElementById('form');
     const posts = document.getElementById('posts');
 
-    // 過去の投稿を読み込み
     window.onload = function() {
       const savedPosts = localStorage.getItem('posts');
       if (savedPosts) {
